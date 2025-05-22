@@ -67,7 +67,8 @@ def actualizar_tabla():
     for i in tree.get_children():
         tree.delete(i)
     for index, row in enumerate(data):
-        tree.insert('', 'end', iid=index, values=(row['nombre'], row['dni'], row['hb'], row['regla']))
+        tag = "evenrow" if index % 2 == 0 else "oddrow"
+        tree.insert('', 'end', iid=index, values=(row['nombre'], row['dni'], row['hb'], row['regla']), tags=(tag,))
 
 def agregar_nuevo():
     def guardar():
@@ -171,23 +172,128 @@ def eliminar_paciente_gui():
 root = tk.Tk()
 root.title("Registro HIS 2025")
 
-frame = tk.Frame(root)
-frame.pack(padx=10, pady=10)
+# Estilo de fuente para la tabla
+style = ttk.Style()
+style.configure("Treeview", font=("Arial", 11), rowheight=35)
+style.configure("Treeview.Heading", font=("Arial", 12, "bold"))
 
-tk.Button(frame, text="+ Nuevo", command=agregar_nuevo).pack(anchor='e')
+# Obtener dimensiones de la pantalla
+ancho_pantalla = root.winfo_screenwidth()
+alto_pantalla = root.winfo_screenheight()
+
+alto_tabla = int(alto_pantalla * 0.85)
+
+# Aplicar como tamaño de ventana
+root.geometry(f"{ancho_pantalla}x{alto_pantalla}")
+
+# Frame superior con botón "+ Nuevo"
+frame = tk.Frame(root)
+frame.pack(fill="x", padx=10, pady=10)
+
+# Subframe para el botón "+ Nuevo" a la izquierda
+frame_izquierdo = tk.Frame(frame)
+frame_izquierdo.pack(side="left", fill="x", expand=True)
+
+tk.Button(
+    frame_izquierdo,
+    text="+ Nuevo",
+    command=agregar_nuevo,
+    font=("Arial", 11, "bold"),
+    bg="#2ecc71",               # Verde brillante
+    fg="white",
+    activebackground="#27ae60",
+    activeforeground="white",
+    relief="solid",
+    bd=1,
+    highlightbackground="black",
+    highlightthickness=1,
+    width=12
+).pack(anchor="w", padx=5, pady=5)
+
+# Frame para tabla y botones de acción juntos
+tabla_botones_frame = tk.Frame(root, height=alto_tabla)
+tabla_botones_frame.pack(fill="x", padx=10, pady=5)
+tabla_botones_frame.pack_propagate(False)
+
+# Frame de la tabla
+tabla_frame = tk.Frame(tabla_botones_frame)
+tabla_frame.pack(fill="both", expand=True, side="left")
 
 columns = ("nombre", "dni", "hb", "regla")
-tree = ttk.Treeview(frame, columns=columns, show="headings")
+
+scroll_y = ttk.Scrollbar(tabla_frame, orient="vertical")
+scroll_y.pack(side="right", fill="y")
+
+tree = ttk.Treeview(tabla_frame, columns=columns, show="headings", yscrollcommand=scroll_y.set)
+tree.tag_configure("evenrow", background="#f2f2f2")  # Gris claro
+tree.tag_configure("oddrow", background="white")     # Blanco
+
+scroll_y.config(command=tree.yview)
+
+tree.column("nombre", width=300, anchor="w")
+tree.column("dni", width=150, anchor="center")
+tree.column("hb", width=100, anchor="center")
+tree.column("regla", width=150, anchor="center")
+
 for col in columns:
     tree.heading(col, text=col.capitalize())
-tree.pack()
 
-boton_frame = tk.Frame(root)
-boton_frame.pack(pady=5)
+tree.pack(fill="both", expand=True)
 
-tk.Button(boton_frame, text="Ver", command=ver_paciente).pack(side="left", padx=5)
-tk.Button(boton_frame, text="Editar", command=editar_paciente).pack(side="left", padx=5)
-tk.Button(boton_frame, text="Eliminar", command=eliminar_paciente_gui).pack(side="left", padx=5)
+# Subframe para los botones Ver, Editar, Eliminar agrupados a la derecha
+frame_derecho = tk.Frame(frame)
+frame_derecho.pack(side="right", padx=10)
+
+# Botón "Ver"
+tk.Button(
+    frame_derecho,
+    text="Ver",
+    command=ver_paciente,
+    font=("Arial", 11, "bold"),
+    bg="#3498db",              # Azul vivo
+    fg="white",
+    activebackground="#2980b9",
+    activeforeground="white",
+    relief="solid",
+    bd=1,
+    highlightbackground="black",
+    highlightthickness=1,
+    width=12
+).pack(side="left", padx=5, pady=5)
+
+# Botón "Editar"
+tk.Button(
+    frame_derecho,
+    text="Editar",
+    command=editar_paciente,
+    font=("Arial", 11, "bold"),
+    bg="#f39c12",              # Naranja brillante
+    fg="white",
+    activebackground="#d68910",
+    activeforeground="white",
+    relief="solid",
+    bd=1,
+    highlightbackground="black",
+    highlightthickness=1,
+    width=12
+).pack(side="left", padx=5, pady=5)
+
+# Botón "Eliminar"
+tk.Button(
+    frame_derecho,
+    text="Eliminar",
+    command=eliminar_paciente_gui,
+    font=("Arial", 11, "bold"),
+    bg="#e74c3c",              # Rojo intenso
+    fg="white",
+    activebackground="#c0392b",
+    activeforeground="white",
+    relief="solid",
+    bd=1,
+    highlightbackground="black",
+    highlightthickness=1,
+    width=12
+).pack(side="left", padx=5, pady=5)
 
 # Inicialización
 crear_tabla()
