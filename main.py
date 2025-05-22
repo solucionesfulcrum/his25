@@ -1,7 +1,67 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+import sqlite3
 
+DB_FILE = "HIS25.db"
 data = []
+
+# 🧱 Crear tabla si no existe
+def crear_tabla():
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS pacientes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT,
+            dni TEXT,
+            hb TEXT,
+            regla TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+# 🔃 Operaciones de base de datos
+def insertar_paciente(paciente):
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO pacientes (nombre, dni, hb, regla)
+        VALUES (?, ?, ?, ?)
+    ''', (paciente['nombre'], paciente['dni'], paciente['hb'], paciente['regla']))
+    conn.commit()
+    conn.close()
+
+def actualizar_paciente(id_, paciente):
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+    cursor.execute('''
+        UPDATE pacientes
+        SET nombre = ?, dni = ?, hb = ?, regla = ?
+        WHERE id = ?
+    ''', (paciente['nombre'], paciente['dni'], paciente['hb'], paciente['regla'], id_))
+    conn.commit()
+    conn.close()
+
+def eliminar_paciente(id_):
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM pacientes WHERE id = ?', (id_,))
+    conn.commit()
+    conn.close()
+
+def obtener_pacientes():
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+    cursor.execute('SELECT id, nombre, dni, hb, regla FROM pacientes')
+    rows = cursor.fetchall()
+    conn.close()
+    return [{'id': row[0], 'nombre': row[1], 'dni': row[2], 'hb': row[3], 'regla': row[4]} for row in rows]
+
+# 🚀 Lógica de la interfaz
+def cargar_data_desde_sql():
+    global data
+    data = obtener_pacientes()
 
 def actualizar_tabla():
     for i in tree.get_children():
@@ -11,12 +71,14 @@ def actualizar_tabla():
 
 def agregar_nuevo():
     def guardar():
-        data.append({
+        nuevo = {
             'nombre': entry_nombre.get(),
             'dni': entry_dni.get(),
             'hb': entry_hb.get(),
             'regla': entry_regla.get()
-        })
+        }
+        insertar_paciente(nuevo)
+        cargar_data_desde_sql()
         actualizar_tabla()
         ventana.destroy()
 
@@ -52,7 +114,8 @@ def ver_paciente():
     ventana = tk.Toplevel(root)
     ventana.title("Ver Paciente")
     for i, (k, v) in enumerate(row.items()):
-        tk.Label(ventana, text=f"{k.capitalize()}: {v}").grid(row=i, column=0, sticky="w")
+        if k != "id":
+            tk.Label(ventana, text=f"{k.capitalize()}: {v}").grid(row=i, column=0, sticky="w")
 
 def editar_paciente():
     index = get_selected_index()
@@ -60,10 +123,14 @@ def editar_paciente():
     row = data[index]
 
     def guardar():
-        row['nombre'] = entry_nombre.get()
-        row['dni'] = entry_dni.get()
-        row['hb'] = entry_hb.get()
-        row['regla'] = entry_regla.get()
+        nuevo = {
+            'nombre': entry_nombre.get(),
+            'dni': entry_dni.get(),
+            'hb': entry_hb.get(),
+            'regla': entry_regla.get()
+        }
+        actualizar_paciente(row['id'], nuevo)
+        cargar_data_desde_sql()
         actualizar_tabla()
         ventana.destroy()
 
@@ -92,16 +159,17 @@ def editar_paciente():
 
     tk.Button(ventana, text="Guardar", command=guardar).grid(row=4, column=0, columnspan=2)
 
-def eliminar_paciente():
+def eliminar_paciente_gui():
     index = get_selected_index()
     if index is None: return
-    if messagebox.askyesno("Confirmar", "¿Deseas eliminar este registro?"):
-        data.pop(index)
+    if messagebox.askyesno("¿Eliminar?", "¿Seguro que deseas eliminar este registro?"):
+        eliminar_paciente(data[index]['id'])
+        cargar_data_desde_sql()
         actualizar_tabla()
 
-# GUI
+# 🖼️ GUI
 root = tk.Tk()
-root.title("Registro HIS")
+root.title("Registro HIS 2025")
 
 frame = tk.Frame(root)
 frame.pack(padx=10, pady=10)
@@ -114,13 +182,16 @@ for col in columns:
     tree.heading(col, text=col.capitalize())
 tree.pack()
 
-# Botones debajo de la tabla
 boton_frame = tk.Frame(root)
 boton_frame.pack(pady=5)
 
 tk.Button(boton_frame, text="Ver", command=ver_paciente).pack(side="left", padx=5)
 tk.Button(boton_frame, text="Editar", command=editar_paciente).pack(side="left", padx=5)
-tk.Button(boton_frame, text="Eliminar", command=eliminar_paciente).pack(side="left", padx=5)
+tk.Button(boton_frame, text="Eliminar", command=eliminar_paciente_gui).pack(side="left", padx=5)
 
+# Inicialización
+crear_tabla()
+cargar_data_desde_sql()
 actualizar_tabla()
+
 root.mainloop()
