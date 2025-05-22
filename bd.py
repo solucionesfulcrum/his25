@@ -14,6 +14,34 @@ def crear_tabla():
             regla TEXT
         )
     ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS UnidadProductora (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT
+        )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS Diagnosticos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT,
+            codigo TEXT
+        )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS Parametros (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT,
+            codigo TEXT,
+            filtro TEXT
+        )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS UnidadProductora_Diagnosticos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            idUnidadProductora TEXT,
+            idDiagnostico TEXT
+        )
+    ''')
     conn.commit()
     conn.close()
 
