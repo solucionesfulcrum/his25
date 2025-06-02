@@ -39,7 +39,9 @@ def crear_tabla():
         CREATE TABLE IF NOT EXISTS UnidadProductora_Diagnosticos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             idUnidadProductora TEXT,
-            idDiagnostico TEXT
+            idDiagnostico TEXT,
+            FOREIGN KEY (idUnidadProductora) REFERENCES UnidadProductora(id),
+            FOREIGN KEY (idDiagnostico) REFERENCES Diagnosticos(id)
         )
     ''')
     conn.commit()
