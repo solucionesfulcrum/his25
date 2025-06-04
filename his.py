@@ -214,6 +214,61 @@ def logicaGeneral():
     llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
     
+    #EDADAÑO
+    rango_ini_vert = 197
+    distancia_vert = 46.4
+    rango_ini_hori = 206
+    tamano_fuente = 14
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #EDADMES
+    rango_ini_vert = 209
+    distancia_vert = 46.4
+    rango_ini_hori = 206
+    tamano_fuente = 14
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #EDADDIA
+    rango_ini_vert = 221
+    distancia_vert = 46.4
+    rango_ini_hori = 206
+    tamano_fuente = 14
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #SEXOMAS
+    rango_ini_vert = 200
+    distancia_vert = 46.4
+    rango_ini_hori = 220
+    tamano_fuente = 14
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #SEXOFEM
+    rango_ini_vert = 219
+    distancia_vert = 46.4
+    rango_ini_hori = 220
+    tamano_fuente = 14
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
     # Guardar sobrescribiendo
     #doc.save("coordenadas_marcadas.pdf", incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
     doc.save("coordenadas_marcadas.pdf")
