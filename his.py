@@ -269,6 +269,325 @@ def logicaGeneral():
     llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
     
+    #PC
+    rango_ini_vert = 197
+    distancia_vert = 46.4
+    rango_ini_hori = 252
+    tamano_fuente = 6
+    cantidad_registro = 12
+    nombre = "50"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #PB
+    rango_ini_vert = 215
+    distancia_vert = 46.4
+    rango_ini_hori = 252
+    tamano_fuente = 6
+    cantidad_registro = 12
+    nombre = "22"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #PESO
+    rango_ini_vert = 193
+    distancia_vert = 46.4
+    rango_ini_hori = 290
+    tamano_fuente = 6
+    cantidad_registro = 12
+    nombre = "75"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #TALLA
+    rango_ini_vert = 205
+    distancia_vert = 46.4
+    rango_ini_hori = 289
+    tamano_fuente = 6
+    cantidad_registro = 12
+    nombre = "156"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #HB
+    rango_ini_vert = 217
+    distancia_vert = 46.4
+    rango_ini_hori = 290
+    tamano_fuente = 6
+    cantidad_registro = 12
+    nombre = "14"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #ESTABLECIMIENTO N
+    rango_ini_vert = 197
+    distancia_vert = 46.4
+    rango_ini_hori = 310
+    tamano_fuente = 14
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #ESTABLECIMIENTO C
+    rango_ini_vert = 209
+    distancia_vert = 46.4
+    rango_ini_hori = 310
+    tamano_fuente = 14
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #ESTABLECIMIENTO R
+    rango_ini_vert = 221
+    distancia_vert = 46.4
+    rango_ini_hori = 310
+    tamano_fuente = 14
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #SERVICIO N
+    rango_ini_vert = 197
+    distancia_vert = 46.4
+    rango_ini_hori = 326
+    tamano_fuente = 14
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #SERVICIO C
+    rango_ini_vert = 209
+    distancia_vert = 46.4
+    rango_ini_hori = 326
+    tamano_fuente = 14
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #SERVICIO R
+    rango_ini_vert = 221
+    distancia_vert = 46.4
+    rango_ini_hori = 326
+    tamano_fuente = 14
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #ACTIVIDAD 1
+    rango_ini_vert = 194
+    distancia_vert = 46.4
+    rango_ini_hori = 344
+    tamano_fuente = 5
+    cantidad_registro = 12
+    nombre = "CONSEJERIA PRE TEST VIH"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #ACTIVIDAD 2
+    rango_ini_vert = 206
+    distancia_vert = 46.4
+    rango_ini_hori = 344
+    tamano_fuente = 5
+    cantidad_registro = 12
+    nombre = "TAMIZAJE VIH"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #ACTIVIDAD 3
+    rango_ini_vert = 218
+    distancia_vert = 46.4
+    rango_ini_hori = 344
+    tamano_fuente = 5
+    cantidad_registro = 12
+    nombre = "CONSEJERIA POST TEST VIH"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #TIPO DIAGNOSTICO P 1
+    rango_ini_vert = 196
+    distancia_vert = 46.4
+    rango_ini_hori = 502
+    tamano_fuente = 12
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #TIPO DIAGNOSTICO P 2
+    rango_ini_vert = 208
+    distancia_vert = 46.4
+    rango_ini_hori = 502
+    tamano_fuente = 12
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #TIPO DIAGNOSTICO P 3
+    rango_ini_vert = 220
+    distancia_vert = 46.4
+    rango_ini_hori = 502
+    tamano_fuente = 12
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #TIPO DIAGNOSTICO D 1
+    rango_ini_vert = 196
+    distancia_vert = 46.4
+    rango_ini_hori = 514    
+    tamano_fuente = 12
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #TIPO DIAGNOSTICO D 2
+    rango_ini_vert = 208
+    distancia_vert = 46.4
+    rango_ini_hori = 514
+    tamano_fuente = 12
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #TIPO DIAGNOSTICO D 3
+    rango_ini_vert = 220
+    distancia_vert = 46.4
+    rango_ini_hori = 514
+    tamano_fuente = 12
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #TIPO DIAGNOSTICO R 1
+    rango_ini_vert = 196
+    distancia_vert = 46.4
+    rango_ini_hori = 526 
+    tamano_fuente = 12
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #TIPO DIAGNOSTICO R 2
+    rango_ini_vert = 208
+    distancia_vert = 46.4
+    rango_ini_hori = 526
+    tamano_fuente = 12
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #TIPO DIAGNOSTICO R 3
+    rango_ini_vert = 220
+    distancia_vert = 46.4
+    rango_ini_hori = 526
+    tamano_fuente = 12
+    cantidad_registro = 12
+    nombre = "X"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #LABORATORIO 1
+    rango_ini_vert = 194
+    distancia_vert = 46.4
+    rango_ini_hori = 542
+    tamano_fuente = 6
+    cantidad_registro = 12
+    nombre = "50"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #LABORATORIO 2
+    rango_ini_vert = 206
+    distancia_vert = 46.4
+    rango_ini_hori = 542
+    tamano_fuente = 6
+    cantidad_registro = 12
+    nombre = "30"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #LABORATORIO 3
+    rango_ini_vert = 218
+    distancia_vert = 46.4
+    rango_ini_hori = 542
+    tamano_fuente = 6
+    cantidad_registro = 12
+    nombre = "40"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #CODIGO CIE CPT 1
+    rango_ini_vert = 194
+    distancia_vert = 46.4
+    rango_ini_hori = 565
+    tamano_fuente = 6
+    cantidad_registro = 12
+    nombre = "50978.46"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #CODIGO CIE CPT 2
+    rango_ini_vert = 206
+    distancia_vert = 46.4
+    rango_ini_hori = 565
+    tamano_fuente = 6
+    cantidad_registro = 12
+    nombre = "31403.58"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
+    #CODIGO CIE CPT 3
+    rango_ini_vert = 218
+    distancia_vert = 46.4
+    rango_ini_hori = 565
+    tamano_fuente = 6
+    cantidad_registro = 12
+    nombre = "40474.54"
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert)
+    
     # Guardar sobrescribiendo
     #doc.save("coordenadas_marcadas.pdf", incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
     doc.save("coordenadas_marcadas.pdf")
