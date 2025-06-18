@@ -86,23 +86,41 @@ def agregar_nuevo():
     ventana = tk.Toplevel(root)
     ventana.title("Nuevo Paciente")
 
-    tk.Label(ventana, text="Nombre:").grid(row=0, column=0)
-    entry_nombre = tk.Entry(ventana)
-    entry_nombre.grid(row=0, column=1)
+    # Obtener tamaño de pantalla
+    ancho_total = root.winfo_screenwidth()
+    alto_total = root.winfo_screenheight()
 
-    tk.Label(ventana, text="DNI:").grid(row=1, column=0)
-    entry_dni = tk.Entry(ventana)
-    entry_dni.grid(row=1, column=1)
+    # Calcular tamaño de ventana (1/4 del total)
+    ancho_ventana = ancho_total // 2
+    alto_ventana = alto_total // 2
 
-    tk.Label(ventana, text="Fecha Hb:").grid(row=2, column=0)
-    entry_hb = tk.Entry(ventana)
-    entry_hb.grid(row=2, column=1)
+    # Calcular posición para centrar
+    x_pos = (ancho_total - ancho_ventana) // 2
+    y_pos = (alto_total - alto_ventana) // 2
 
-    tk.Label(ventana, text="Fecha Regla:").grid(row=3, column=0)
-    entry_regla = tk.Entry(ventana)
-    entry_regla.grid(row=3, column=1)
+    ventana.geometry(f"{ancho_ventana}x{alto_ventana}+{x_pos}+{y_pos}")
 
-    tk.Button(ventana, text="Guardar", command=guardar).grid(row=4, column=0, columnspan=2)
+    ventana.columnconfigure(1, weight=1)  # Columna de los Entry se expande
+
+    fuente = ("Arial", 12)
+
+    tk.Label(ventana, text="Nombre:", font=fuente).grid(row=0, column=0, sticky="e", padx=10, pady=5)
+    entry_nombre = tk.Entry(ventana, font=fuente)
+    entry_nombre.grid(row=0, column=1, sticky="ew", padx=10, pady=5)
+
+    tk.Label(ventana, text="DNI:", font=fuente).grid(row=1, column=0, sticky="e", padx=10, pady=5)
+    entry_dni = tk.Entry(ventana, font=fuente)
+    entry_dni.grid(row=1, column=1, sticky="ew", padx=10, pady=5)
+
+    tk.Label(ventana, text="Fecha Hb:", font=fuente).grid(row=2, column=0, sticky="e", padx=10, pady=5)
+    entry_hb = tk.Entry(ventana, font=fuente)
+    entry_hb.grid(row=2, column=1, sticky="ew", padx=10, pady=5)
+
+    tk.Label(ventana, text="Fecha Regla:", font=fuente).grid(row=3, column=0, sticky="e", padx=10, pady=5)
+    entry_regla = tk.Entry(ventana, font=fuente)
+    entry_regla.grid(row=3, column=1, sticky="ew", padx=10, pady=5)
+
+    tk.Button(ventana, text="Guardar", command=guardar, font=fuente, bg="#2ecc71", fg="white").grid(row=4, column=0, columnspan=2, pady=15)
 
 def get_selected_index():
     selected = tree.selection()
