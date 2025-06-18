@@ -1,4 +1,10 @@
 import fitz  # PyMuPDF
+from datetime import date
+import locale
+
+locale.setlocale(locale.LC_TIME, 'Spanish_Spain.1252')
+
+hoy = date.today()
 
 def llenadoPdf(cantidad_registro, page, rango_ini_hori, nombre, tamano_fuente, distancia_vert, rango_ini_vert, siguiente):    
     
@@ -18,27 +24,14 @@ def logicaGeneral():
             coord_text = f"({x},{y})"
             page.insert_text((x, y), coord_text, fontsize=2, fontname="Times-Bold", color=(1, 0, 0))"""
 
-    #NOMBRES PACIENTE
-    rango_ini_vert = 183
-    distancia_vert = 46.4
-    rango_ini_hori = 117
-    tamano_fuente = 6
-    cantidad_registro = 6
-    nombre = "Juan Pérez"
-    siguiente = 2
-
-    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
-               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert, 
-               siguiente = siguiente)
-    
     #AÑO
     rango_ini_vert = 145
     distancia_vert = 0
     rango_ini_hori = 25
     tamano_fuente = 6
     cantidad_registro = 1
-    nombre = "2025"
-    siguiente = 2
+    nombre = str(hoy.year)
+    siguiente = 0
     llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert, 
                siguiente = siguiente)
@@ -50,8 +43,8 @@ def logicaGeneral():
     distancia_vert = 0
     tamano_fuente = 6
     cantidad_registro = 1
-    nombre = "MAYO"
-    siguiente = 2
+    nombre = str(hoy.strftime("%B").upper())
+    siguiente = 0
     llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                siguiente = siguiente)
@@ -64,7 +57,7 @@ def logicaGeneral():
     tamano_fuente = 6
     cantidad_registro = 1
     nombre = "HOSPITAL HUAYCAN"
-    siguiente = 2
+    siguiente = 0
     llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                siguiente = siguiente)
@@ -77,7 +70,7 @@ def logicaGeneral():
     tamano_fuente = 6
     cantidad_registro = 1
     nombre = "ITS PG"
-    siguiente = 2
+    siguiente = 0
     llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                siguiente = siguiente)
@@ -90,7 +83,7 @@ def logicaGeneral():
     tamano_fuente = 6
     cantidad_registro = 1
     nombre = "20883195"
-    siguiente = 2
+    siguiente = 0
     llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                siguiente = siguiente)
@@ -103,9 +96,22 @@ def logicaGeneral():
     tamano_fuente = 6
     cantidad_registro = 1
     nombre = "CANCHIHUAMAN VILLEGAS LIRMA"
-    siguiente = 2
+    siguiente = 0
     llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
+               siguiente = siguiente)
+    
+    #NOMBRES PACIENTE
+    rango_ini_vert = 183
+    distancia_vert = 46.4
+    rango_ini_hori = 117
+    tamano_fuente = 6
+    cantidad_registro = 6
+    nombre = "Juan Pérez"
+    siguiente = 2
+
+    llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+               tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert, 
                siguiente = siguiente)
         
     #FECHA HEMOGLOBINA
