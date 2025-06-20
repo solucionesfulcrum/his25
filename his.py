@@ -1,6 +1,9 @@
 import fitz  # PyMuPDF
 from datetime import date
 import locale
+import sqlite3
+
+DB_FILE = "HIS25.db"
 
 locale.setlocale(locale.LC_TIME, 'Spanish_Spain.1252')
 
@@ -11,6 +14,20 @@ def llenadoPdf(cantidad_registro, page, rango_ini_hori, nombre, tamano_fuente, d
     for x in range(cantidad_registro):
         page.insert_text((rango_ini_hori, rango_ini_vert), nombre, fontsize=tamano_fuente)
         rango_ini_vert += distancia_vert * siguiente
+
+def obtener_UnidadProductora_Diagnosticos():
+    conn = sqlite3.connect(DB_FILE)
+    cursor = conn.cursor()
+    cursor.execute("""SELECT UPD.id, UPD.idUnidadProductora, UPD.idDiagnostico, UP.id, 
+UP.nombre, UP.agrupacion, D.id, D.nombre, D.codigo  
+FROM UnidadProductora_Diagnosticos UPD
+INNER JOIN UnidadProductora UP ON UP.id = UPD.idUnidadProductora
+INNER JOIN Diagnosticos D ON D.id = UPD.idDiagnostico;""")
+    rows = cursor.fetchall()
+    conn.close()
+    return [{'id_upd': row[0], 'idUnidadProductora': row[1], 'nombre_up': row[2], 
+             'agrupacion_up': row[3], 'id_d': row[4], 'id_d': row[5], 'nombre_d': row[6], 
+             'codigo_d': row[6]} for row in rows]
 
 
 def logicaGeneral():
@@ -61,6 +78,9 @@ def logicaGeneral():
     llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                siguiente = siguiente)
+
+    unidadProductora_diagnostico = obtener_UnidadProductora_Diagnosticos()
+    print(unidadProductora_diagnostico)
 
     #UNIDAD
     rango_ini_vert = 145
@@ -144,7 +164,7 @@ def logicaGeneral():
     rango_ini_hori = 28
     tamano_fuente = 6
     cantidad_registro = 6
-    nombre = "28"
+    nombre = str(hoy.day)
     siguiente = 2
     llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
