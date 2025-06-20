@@ -75,6 +75,14 @@ def actualizar_tabla():
         tag = "evenrow" if index % 2 == 0 else "oddrow"
         tree.insert('', 'end', iid=index, values=(row['nombre'], row['dni'], row['hb'], row['regla']), tags=(tag,))
 
+def obtener_unidades_productoras():
+    conn = sqlite3.connect(DB_FILE)  # ajusta el nombre de tu archivo .db
+    cursor = conn.cursor()
+    cursor.execute("SELECT nombre FROM unidadProductora")
+    resultados = [fila[0] for fila in cursor.fetchall()]
+    conn.close()
+    return resultados
+
 def agregar_nuevo():
     def guardar():
         nuevo = {
@@ -203,13 +211,14 @@ def agregar_nuevo():
     ctk.CTkRadioButton(frame_servicio, text="Continuador", variable=ci_servicio_var, value="Continuador", font=fuente).pack(side="left", padx=5)
     ctk.CTkRadioButton(frame_servicio, text="Reingresante", variable=ci_servicio_var, value="Reingresante", font=fuente).pack(side="left", padx=5)
 
+    lista_unidades = obtener_unidades_productoras()
 
     ctk.CTkLabel(ventana, text="UNIDAD PRODUCTORA:", font=fuente).grid(row=15, column=0, sticky="e", padx=10, pady=5)
 
     combo_unidadProductora = ctk.CTkComboBox(
         ventana,
         font=fuente,
-        values=["UP Salud", "UP Medicina", "UP Odontología"],  # <-- Opciones que tú definas
+        values=lista_unidades,
         width=200,
         state="readonly"  # Opcional, para que solo seleccione y no escriba libremente
     )
