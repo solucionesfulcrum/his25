@@ -17,9 +17,17 @@ def crear_tabla():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS UnidadProductora (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nombre TEXT
+            nombre TEXT,
+            agrupacion TEXT 
         )
     ''')
+
+    cursor.execute('''
+        INSERT INTO UnidadProductora (id, nombre, agrupacion)
+        VALUES (?, ?, ?, ?)
+     ('1','ITS PG', '2')''')
+    conn.commit()
+
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS Diagnosticos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -27,6 +35,17 @@ def crear_tabla():
             codigo TEXT
         )
     ''')
+
+    cursor.execute('''
+        INSERT INTO Diagnosticos (id, nombre, codigo)
+        VALUES (?, ?, ?, ?)
+     ('1','CONSEJERIA PRE TEST VIH', '50978.46')''')
+
+    cursor.execute('''
+        INSERT INTO Diagnosticos (id, nombre, codigo)
+        VALUES (?, ?, ?, ?)
+     ('2','TAMIZAJE VIH', '31403.58')''')
+
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS Parametros (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -44,6 +63,17 @@ def crear_tabla():
             FOREIGN KEY (idDiagnostico) REFERENCES Diagnosticos(id)
         )
     ''')
+
+    cursor.execute('''
+        INSERT INTO UnidadProductora_Diagnosticos (id, idUnidadProductora, idDiagnostico)
+        VALUES (?, ?, ?, ?)
+     ('1','1', '1')''')
+
+    cursor.execute('''
+        INSERT INTO UnidadProductora_Diagnosticos (id, idUnidadProductora, idDiagnostico)
+        VALUES (?, ?, ?, ?)
+     ('2','1', '2')''')
+    
     conn.commit()
     conn.close()
 
