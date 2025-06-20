@@ -1,6 +1,11 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
+from tkcalendar import DateEntry
+import customtkinter as ctk
+
+ctk.set_appearance_mode("light")  # o "dark"
+ctk.set_default_color_theme("blue")  # o "green", "dark-blue", etc.
 
 DB_FILE = "HIS25.db"
 data = []
@@ -100,27 +105,118 @@ def agregar_nuevo():
 
     ventana.geometry(f"{ancho_ventana}x{alto_ventana}+{x_pos}+{y_pos}")
 
-    ventana.columnconfigure(1, weight=1)  # Columna de los Entry se expande
+    ventana.columnconfigure(0, weight=0)
+    ventana.columnconfigure(1, weight=1)
+    ventana.columnconfigure(2, weight=0)
+    ventana.columnconfigure(3, weight=1)
 
     fuente = ("Arial", 12)
 
-    tk.Label(ventana, text="Nombre:", font=fuente).grid(row=0, column=0, sticky="e", padx=10, pady=5)
-    entry_nombre = tk.Entry(ventana, font=fuente)
-    entry_nombre.grid(row=0, column=1, sticky="ew", padx=10, pady=5)
-
-    tk.Label(ventana, text="DNI:", font=fuente).grid(row=1, column=0, sticky="e", padx=10, pady=5)
+    ctk.CTkLabel(ventana, text="DNI:", font=fuente).grid(row=0, column=0, sticky="e", padx=10, pady=5)
     entry_dni = tk.Entry(ventana, font=fuente)
-    entry_dni.grid(row=1, column=1, sticky="ew", padx=10, pady=5)
+    entry_dni.grid(row=0, column=1, sticky="ew", padx=10, pady=5)
 
-    tk.Label(ventana, text="Fecha Hb:", font=fuente).grid(row=2, column=0, sticky="e", padx=10, pady=5)
+    ctk.CTkLabel(ventana, text="NOMBRE:", font=fuente).grid(row=1, column=0, sticky="e", padx=10, pady=5)
+    entry_nombre = tk.Entry(ventana, font=fuente)
+    entry_nombre.grid(row=1, column=1, columnspan=3, sticky="ew", padx=10, pady=5)
+
+    ctk.CTkLabel(ventana, text="APELLIDO:", font=fuente).grid(row=2, column=0, sticky="e", padx=10, pady=5)
+    entry_apellido = tk.Entry(ventana, font=fuente)
+    entry_apellido.grid(row=2, column=1, columnspan=3, sticky="ew", padx=10, pady=5)
+
+    ctk.CTkLabel(ventana, text="HISTORIA CLINICA:", font=fuente).grid(row=3, column=0, sticky="e", padx=10, pady=5)
+    entry_historiaClinica = tk.Entry(ventana, font=fuente)
+    entry_historiaClinica.grid(row=3, column=1, sticky="ew", padx=10, pady=5)
+
+    ctk.CTkLabel(ventana, text="FICHA FAMILIAR:", font=fuente).grid(row=3, column=2, sticky="e", padx=10, pady=5)
+    entry_fichaFamiliar = tk.Entry(ventana, font=fuente)
+    entry_fichaFamiliar.grid(row=3, column=3, sticky="ew", padx=10, pady=5)
+
+    ctk.CTkLabel(ventana, text="FICHA FAMILIAR:", font=fuente).grid(row=3, column=2, sticky="e", padx=10, pady=5)
+    entry_fichaFamiliar = tk.Entry(ventana, font=fuente)
+    entry_fichaFamiliar.grid(row=3, column=3, sticky="ew", padx=10, pady=5)
+
+    ctk.CTkLabel(ventana, text="FECHA NACIMIENTO:", font=fuente).grid(row=4, column=0, sticky="e", padx=10, pady=5)
+    entry_fechaNacimiento = DateEntry(ventana, font=fuente, date_pattern="dd/mm/yyyy", locale="es_PE", width=18)
+    entry_fechaNacimiento.grid(row=4, column=1,sticky="ew", padx=10, pady=5)
+    
+    sexo_var = ctk.StringVar(value="")
+
+    ctk.CTkLabel(ventana, text="SEXO:", font=fuente).grid(row=4, column=2, sticky="e", padx=10, pady=5)
+
+    frame_sexo = ctk.CTkFrame(ventana, fg_color="transparent")
+    frame_sexo.grid(row=4, column=3, columnspan=1, sticky="w", padx=10, pady=5)
+
+    ctk.CTkRadioButton(frame_sexo, text="Masculino", variable=sexo_var, value="M", font=fuente).pack(side="left", padx=5)
+    ctk.CTkRadioButton(frame_sexo, text="Femenino", variable=sexo_var, value="F", font=fuente).pack(side="left", padx=5)
+
+
+    ctk.CTkLabel(ventana, text="PERIMETRO CEFALICO:", font=fuente).grid(row=5, column=0, sticky="e", padx=10, pady=5)
+    entry_perimetroCefalico = tk.Entry(ventana, font=fuente)
+    entry_perimetroCefalico.grid(row=5, column=1, sticky="ew", padx=10, pady=5)
+
+    ctk.CTkLabel(ventana, text="PERIMETRO ABDOMINAL:", font=fuente).grid(row=6, column=0, sticky="e", padx=10, pady=5)
+    entry_perimetroAdominal = tk.Entry(ventana, font=fuente)
+    entry_perimetroAdominal.grid(row=6, column=1, sticky="ew", padx=10, pady=5)
+
+    ctk.CTkLabel(ventana, text="PESO:", font=fuente).grid(row=7, column=0, sticky="e", padx=10, pady=5)
+    entry_peso = tk.Entry(ventana, font=fuente)
+    entry_peso.grid(row=7, column=1, sticky="ew", padx=10, pady=5)
+
+    ctk.CTkLabel(ventana, text="TALLA:", font=fuente).grid(row=7, column=2, sticky="e", padx=10, pady=5)
+    entry_talla = tk.Entry(ventana, font=fuente)
+    entry_talla.grid(row=7, column=3, sticky="ew", padx=10, pady=5)
+
+    ctk.CTkLabel(ventana, text="HB:", font=fuente).grid(row=8, column=0, sticky="e", padx=10, pady=5)
     entry_hb = tk.Entry(ventana, font=fuente)
-    entry_hb.grid(row=2, column=1, sticky="ew", padx=10, pady=5)
+    entry_hb.grid(row=8, column=1, sticky="ew", padx=10, pady=5)
 
-    tk.Label(ventana, text="Fecha Regla:", font=fuente).grid(row=3, column=0, sticky="e", padx=10, pady=5)
-    entry_regla = tk.Entry(ventana, font=fuente)
-    entry_regla.grid(row=3, column=1, sticky="ew", padx=10, pady=5)
+    ctk.CTkLabel(ventana, text="FECHA ULTIMA HB:", font=fuente).grid(row=8, column=2, sticky="e", padx=10, pady=5)
+    entry_fechaUltimaHb = DateEntry(ventana, font=fuente, date_pattern="dd/mm/yyyy", locale="es_PE", width=18)
+    entry_fechaUltimaHb.grid(row=8, column=3, sticky="ew", padx=10, pady=5)
 
-    tk.Button(ventana, text="Guardar", command=guardar, font=fuente, bg="#2ecc71", fg="white").grid(row=4, column=0, columnspan=2, pady=15)
+    # Variable para guardar la opción seleccionada
+    ci_establecimiento_var = tk.StringVar(value="")  # puedes poner "Nuevo" si quieres preseleccionar
+
+    ci_establecimiento_var = ctk.StringVar(value="")
+
+    ctk.CTkLabel(ventana, text="CI - ESTABLECIMIENTO:", font=fuente).grid(row=9, column=0, sticky="e", padx=10, pady=5)
+
+    frame_establecimiento = ctk.CTkFrame(ventana, fg_color="transparent")
+    frame_establecimiento.grid(row=9, column=1, columnspan=3, sticky="w", padx=10, pady=5)
+
+    ctk.CTkRadioButton(frame_establecimiento, text="Nuevo", variable=ci_establecimiento_var, value="Nuevo", font=fuente).pack(side="left", padx=5)
+    ctk.CTkRadioButton(frame_establecimiento, text="Continuador", variable=ci_establecimiento_var, value="Continuador", font=fuente).pack(side="left", padx=5)
+    ctk.CTkRadioButton(frame_establecimiento, text="Reingresante", variable=ci_establecimiento_var, value="Reingresante", font=fuente).pack(side="left", padx=5)
+
+    # Variable para almacenar la selección del servicio
+    ci_servicio_var = tk.StringVar(value="")  # o "Nuevo" si quieres un valor preseleccionado
+
+    ci_servicio_var = ctk.StringVar(value="")  # o "Nuevo" para valor por defecto
+
+    ctk.CTkLabel(ventana, text="CI - SERVICIO:", font=fuente).grid(row=10, column=0, sticky="e", padx=10, pady=5)
+
+    frame_servicio = ctk.CTkFrame(ventana, fg_color="transparent")
+    frame_servicio.grid(row=10, column=1, columnspan=3, sticky="w", padx=10, pady=5)
+
+    ctk.CTkRadioButton(frame_servicio, text="Nuevo", variable=ci_servicio_var, value="Nuevo", font=fuente).pack(side="left", padx=5)
+    ctk.CTkRadioButton(frame_servicio, text="Continuador", variable=ci_servicio_var, value="Continuador", font=fuente).pack(side="left", padx=5)
+    ctk.CTkRadioButton(frame_servicio, text="Reingresante", variable=ci_servicio_var, value="Reingresante", font=fuente).pack(side="left", padx=5)
+
+
+    ctk.CTkLabel(ventana, text="UNIDAD PRODUCTORA:", font=fuente).grid(row=15, column=0, sticky="e", padx=10, pady=5)
+
+    combo_unidadProductora = ctk.CTkComboBox(
+        ventana,
+        font=fuente,
+        values=["UP Salud", "UP Medicina", "UP Odontología"],  # <-- Opciones que tú definas
+        width=200,
+        state="readonly"  # Opcional, para que solo seleccione y no escriba libremente
+    )
+    combo_unidadProductora.grid(row=15, column=1, sticky="ew", padx=10, pady=5)
+
+
+    tk.Button(ventana, text="Guardar", command=guardar, font=fuente, bg="#2ecc71", fg="white").grid(row=17, column=1, columnspan=2, pady=15)
 
 def get_selected_index():
     selected = tree.selection()
@@ -134,7 +230,7 @@ def ver_paciente():
     ventana.title("Ver Paciente")
     for i, (k, v) in enumerate(row.items()):
         if k != "id":
-            tk.Label(ventana, text=f"{k.capitalize()}: {v}").grid(row=i, column=0, sticky="w")
+            ctk.CTkLabel(ventana, text=f"{k.capitalize()}: {v}").grid(row=i, column=0, sticky="w")
 
 def editar_paciente():
     index = get_selected_index()
@@ -156,22 +252,22 @@ def editar_paciente():
     ventana = tk.Toplevel(root)
     ventana.title("Editar Paciente")
 
-    tk.Label(ventana, text="Nombre:").grid(row=0, column=0)
+    ctk.CTkLabel(ventana, text="Nombre:").grid(row=0, column=0)
     entry_nombre = tk.Entry(ventana)
     entry_nombre.insert(0, row['nombre'])
     entry_nombre.grid(row=0, column=1)
 
-    tk.Label(ventana, text="DNI:").grid(row=1, column=0)
+    ctk.CTkLabel(ventana, text="DNI:").grid(row=1, column=0)
     entry_dni = tk.Entry(ventana)
     entry_dni.insert(0, row['dni'])
     entry_dni.grid(row=1, column=1)
 
-    tk.Label(ventana, text="Fecha Hb:").grid(row=2, column=0)
+    ctk.CTkLabel(ventana, text="Fecha Hb:").grid(row=2, column=0)
     entry_hb = tk.Entry(ventana)
     entry_hb.insert(0, row['hb'])
     entry_hb.grid(row=2, column=1)
 
-    tk.Label(ventana, text="Fecha Regla:").grid(row=3, column=0)
+    ctk.CTkLabel(ventana, text="Fecha Regla:").grid(row=3, column=0)
     entry_regla = tk.Entry(ventana)
     entry_regla.insert(0, row['regla'])
     entry_regla.grid(row=3, column=1)
