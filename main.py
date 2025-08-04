@@ -3,28 +3,13 @@ from tkinter import ttk, messagebox
 import sqlite3
 from tkcalendar import DateEntry
 import customtkinter as ctk
+from modelo import guardar_formulario_completo
 
 ctk.set_appearance_mode("light")  # o "dark"
 ctk.set_default_color_theme("blue")  # o "green", "dark-blue", etc.
 
 DB_FILE = "HIS25.db"
 data = []
-
-# 🧱 Crear tabla si no existe
-def crear_tabla():
-    conn = sqlite3.connect(DB_FILE)
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS pacientes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nombre TEXT,
-            dni TEXT,
-            hb TEXT,
-            regla TEXT
-        )
-    ''')
-    conn.commit()
-    conn.close()
 
 # 🔃 Operaciones de base de datos
 def insertar_paciente(paciente):
@@ -36,37 +21,6 @@ def insertar_paciente(paciente):
     ''', (paciente['nombre'], paciente['dni'], paciente['hb'], paciente['regla']))
     conn.commit()
     conn.close()
-
-def actualizar_paciente(id_, paciente):
-    conn = sqlite3.connect(DB_FILE)
-    cursor = conn.cursor()
-    cursor.execute('''
-        UPDATE pacientes
-        SET nombre = ?, dni = ?, hb = ?, regla = ?
-        WHERE id = ?
-    ''', (paciente['nombre'], paciente['dni'], paciente['hb'], paciente['regla'], id_))
-    conn.commit()
-    conn.close()
-
-def eliminar_paciente(id_):
-    conn = sqlite3.connect(DB_FILE)
-    cursor = conn.cursor()
-    cursor.execute('DELETE FROM pacientes WHERE id = ?', (id_,))
-    conn.commit()
-    conn.close()
-
-def obtener_pacientes():
-    conn = sqlite3.connect(DB_FILE)
-    cursor = conn.cursor()
-    cursor.execute('SELECT id, nombre, dni, hb, regla FROM pacientes')
-    rows = cursor.fetchall()
-    conn.close()
-    return [{'id': row[0], 'nombre': row[1], 'dni': row[2], 'hb': row[3], 'regla': row[4]} for row in rows]
-
-# 🚀 Lógica de la interfaz
-def cargar_data_desde_sql():
-    global data
-    data = obtener_pacientes()
 
 def actualizar_tabla():
     for i in tree.get_children():
@@ -85,16 +39,28 @@ def obtener_unidades_productoras():
 
 def agregar_nuevo():
     def guardar():
-        nuevo = {
-            'nombre': entry_nombre.get(),
-            'dni': entry_dni.get(),
-            'hb': entry_hb.get(),
-            'regla': entry_regla.get()
-        }
-        insertar_paciente(nuevo)
-        cargar_data_desde_sql()
-        actualizar_tabla()
-        ventana.destroy()
+        try:
+            guardar_formulario_completo(
+                nombres=entry_nombre.get(),
+                apellidos=entry_apellido.get(),
+                dni=entry_dni.get(),
+                fecha_nacimiento=entry_fechaNacimiento.get(),
+                sexo=sexo_var.get(),
+                perimetro_cefalico=entry_perimetroCefalico.get(),
+                perimetro_abdominal=entry_perimetroAdominal.get(),
+                peso=entry_peso.get(),
+                talla=entry_talla.get(),
+                hb=entry_hb.get(),
+                fecha_ultima_hb=entry_fechaUltimaHb.get(),
+                establecimiento=ci_establecimiento_var.get(),
+                servicio=ci_servicio_var.get(),
+                unidad_productora_nombre=combo_unidadProductora.get()
+            )
+            messagebox.showinfo("Éxito", "Paciente guardado correctamente.")
+            actualizar_tabla()
+            ventana.destroy()
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo guardar el paciente:\n{str(e)}")
 
     ventana = tk.Toplevel(root)
     ventana.title("Nuevo Paciente")
@@ -254,7 +220,6 @@ def editar_paciente():
             'regla': entry_regla.get()
         }
         actualizar_paciente(row['id'], nuevo)
-        cargar_data_desde_sql()
         actualizar_tabla()
         ventana.destroy()
 
@@ -288,7 +253,6 @@ def eliminar_paciente_gui():
     if index is None: return
     if messagebox.askyesno("¿Eliminar?", "¿Seguro que deseas eliminar este registro?"):
         eliminar_paciente(data[index]['id'])
-        cargar_data_desde_sql()
         actualizar_tabla()
 
 # 🖼️ GUI
@@ -419,8 +383,8 @@ tk.Button(
 ).pack(side="left", padx=5, pady=5)
 
 # Inicialización
-crear_tabla()
-cargar_data_desde_sql()
+# crear_tabla()
+# cargar_data_desde_sql()
 actualizar_tabla()
 
 root.mainloop()
