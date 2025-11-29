@@ -23,14 +23,39 @@ datos = [
     "dni": "74730076",
     "fecha_nacimiento": "1995-02-09",
     "edad": "25"
+  },{
+    "nombre": "KARINA PUJAY CLAUDIO",
+    "h_clinica": "281302",
+    "dni": "76795677",
+    "fecha_nacimiento": "1995-06-16",
+    "edad": "20"
+  },
+  {
+    "nombre": "AYME JHAHAIRA ESTREMADOYRO JAUREGUI",
+    "h_clinica": "24947",
+    "dni": "74730076",
+    "fecha_nacimiento": "1995-02-09",
+    "edad": "25"
+  },{
+    "nombre": "KARINA PUJAY CLAUDIO",
+    "h_clinica": "281302",
+    "dni": "76795677",
+    "fecha_nacimiento": "1995-06-16",
+    "edad": "20"
+  },
+  {
+    "nombre": "AYME JHAHAIRA ESTREMADOYRO JAUREGUI",
+    "h_clinica": "24947",
+    "dni": "74730076",
+    "fecha_nacimiento": "1995-02-09",
+    "edad": "25"
   }]
 
 def llenadoPdf(cantidad_registro, page, rango_ini_hori, nombre, tamano_fuente, distancia_vert, rango_ini_vert, siguiente):    
 
 
-    for x in range(cantidad_registro):
+    #for x in range(cantidad_registro):
         page.insert_text((rango_ini_hori, rango_ini_vert), nombre, fontsize=tamano_fuente)
-        rango_ini_vert += distancia_vert * siguiente
 
 def llenadoPdf1(cantidad_registro, page, rango_ini_hori, nombre, tamano_fuente, distancia_vert, rango_ini_vert, siguiente):    
 
@@ -149,13 +174,15 @@ def logicaGeneral():
         rango_ini_vert = 183
         distancia_vert = 46.4
         rango_ini_hori = 117
-        tamano_fuente = 6
-        cantidad_registro = 3
+        tamano_fuente = 4
+        cantidad_registro = 12
         nombre = datos[x]["nombre"]
         siguiente = x
+        r = 183
+        r += distancia_vert * siguiente
 
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
-                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert, 
+                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=r, 
                 siguiente = siguiente)
             
         #FECHA HEMOGLOBINA
