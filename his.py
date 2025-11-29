@@ -12,43 +12,87 @@ hoy = date.today()
 datos = [
   {
     "nombre": "KARINA PUJAY CLAUDIO",
-    "h_clinica": "281302",
-    "dni": "76795677",
-    "fecha_nacimiento": "1995-06-16",
-    "edad": "20"
+    "H. CL.": "281302",
+    "DNI": "76795677",
+    "FN": "16/06/1995",
+    "EDAD": 30
   },
   {
     "nombre": "AYME JHAHAIRA ESTREMADOYRO JAUREGUI",
-    "h_clinica": "24947",
-    "dni": "74730076",
-    "fecha_nacimiento": "1995-02-09",
-    "edad": "25"
-  },{
-    "nombre": "KARINA PUJAY CLAUDIO",
-    "h_clinica": "281302",
-    "dni": "76795677",
-    "fecha_nacimiento": "1995-06-16",
-    "edad": "20"
+    "H. CL.": "24947",
+    "DNI": "74730076",
+    "FN": "9/02/1995",
+    "EDAD": 30
   },
   {
-    "nombre": "AYME JHAHAIRA ESTREMADOYRO JAUREGUI",
-    "h_clinica": "24947",
-    "dni": "74730076",
-    "fecha_nacimiento": "1995-02-09",
-    "edad": "25"
-  },{
-    "nombre": "KARINA PUJAY CLAUDIO",
-    "h_clinica": "281302",
-    "dni": "76795677",
-    "fecha_nacimiento": "1995-06-16",
-    "edad": "20"
+    "nombre": "SISLY BRENDA MARTINEZ GUERRA",
+    "H. CL.": "47181",
+    "DNI": "60235681",
+    "FN": "2/03/2000",
+    "EDAD": 25
   },
   {
-    "nombre": "AYME JHAHAIRA ESTREMADOYRO JAUREGUI",
-    "h_clinica": "24947",
-    "dni": "74730076",
-    "fecha_nacimiento": "1995-02-09",
-    "edad": "25"
+    "nombre": "SOLEDAD MILAGROS ALCANTARA CONDORI",
+    "H. CL.": "43053",
+    "DNI": "43602838",
+    "FN": "27/06/1986",
+    "EDAD": 39
+  },
+  {
+    "nombre": "MARIASABETH GINA GOMEZ LIZANA",
+    "H. CL.": "162577",
+    "DNI": "72957842",
+    "FN": "3/07/1999",
+    "EDAD": 25
+  },
+  {
+    "nombre": "CATNHERINE MAVILA CASTRO CARIJANO",
+    "H. CL.": "41773",
+    "DNI": "73936090",
+    "FN": "30/11/1996",
+    "EDAD": 28
+  },
+  {
+    "nombre": "ELVITA FLOR ZAVALETA AGUILAR",
+    "H. CL.": "281675",
+    "DNI": "48623291",
+    "FN": "29/08/1995",
+    "EDAD": 29
+  },
+  {
+    "nombre": "ROXANA Marisol ALIAGA LADERA",
+    "H. CL.": "162997",
+    "DNI": "47038535",
+    "FN": "25/12/1991",
+    "EDAD": 33
+  },
+  {
+    "nombre": "GABRIELA HERRERA GERONIMO",
+    "H. CL.": "281705",
+    "DNI": "60244256",
+    "FN": "18/03/2004",
+    "EDAD": 22
+  },
+  {
+    "nombre": "MARISOL Soleyn RODRIGUEZ ARIAS",
+    "H. CL.": "118800",
+    "DNI": "48052783",
+    "FN": "31/01/1993",
+    "EDAD": 32
+  },
+  {
+    "nombre": "JOHANA CRISS ORTIZ COLOME",
+    "H. CL.": "278754",
+    "DNI": "61006154",
+    "FN": "13/12/1994",
+    "EDAD": 30
+  },
+  {
+    "nombre": "JANETH MARIBEL PACHECO PIO",
+    "H. CL.": "43543",
+    "DNI": "61943474",
+    "FN": "15/07/1999",
+    "EDAD": 25
   }]
 
 def llenadoPdf(cantidad_registro, page, rango_ini_hori, nombre, tamano_fuente, distancia_vert, rango_ini_vert, siguiente):    
@@ -178,11 +222,10 @@ def logicaGeneral():
         cantidad_registro = 12
         nombre = datos[x]["nombre"]
         siguiente = x
-        r = 183
-        r += distancia_vert * siguiente
+        rango_ini_vert += distancia_vert * siguiente
 
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
-                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=r, 
+                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert, 
                 siguiente = siguiente)
             
         #FECHA HEMOGLOBINA
@@ -191,8 +234,9 @@ def logicaGeneral():
         rango_ini_hori = 337
         tamano_fuente = 6
         cantidad_registro = 3
-        nombre = "01     06     2025"
-        siguiente = 2
+        nombre = ""
+        siguiente = x
+        rango_ini_vert += distancia_vert * siguiente
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                 siguiente = siguiente)
@@ -202,9 +246,10 @@ def logicaGeneral():
         distancia_vert = 46.4
         rango_ini_hori = 522
         tamano_fuente = 6
-        cantidad_registro = 3
-        nombre = "01     06     2025"
-        siguiente = 2
+        cantidad_registro = 12
+        nombre = datos[x]["FN"]
+        siguiente = x
+        rango_ini_vert += distancia_vert * siguiente
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                 siguiente = siguiente)
@@ -214,9 +259,10 @@ def logicaGeneral():
         distancia_vert = 46.4
         rango_ini_hori = 28
         tamano_fuente = 6
-        cantidad_registro = 6
-        nombre = str(hoy.day)
-        siguiente = 2
+        cantidad_registro = 12
+        nombre = "28"
+        siguiente = x
+        rango_ini_vert += distancia_vert * siguiente
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                 siguiente = siguiente)
@@ -227,8 +273,9 @@ def logicaGeneral():
         rango_ini_hori = 58
         tamano_fuente = 6
         cantidad_registro = 6
-        nombre = "72412676"
-        siguiente = 2
+        nombre = datos[x]["DNI"]
+        siguiente = x
+        rango_ini_vert += distancia_vert * siguiente
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                 siguiente = siguiente)
@@ -239,8 +286,9 @@ def logicaGeneral():
         rango_ini_hori = 58
         tamano_fuente = 6
         cantidad_registro = 6
-        nombre = "72412676"
-        siguiente = 2
+        nombre = datos[x]["H. CL."]
+        siguiente = x
+        rango_ini_vert += distancia_vert * siguiente
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                 siguiente = siguiente)
@@ -251,7 +299,7 @@ def logicaGeneral():
         rango_ini_hori = 58
         tamano_fuente = 6
         cantidad_registro = 6
-        nombre = "72412676"
+        nombre = ""
         siguiente = 2
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -262,9 +310,9 @@ def logicaGeneral():
         distancia_vert = 46.4
         rango_ini_hori = 111
         tamano_fuente = 6
-        cantidad_registro = 6
+        cantidad_registro = 12
         nombre = "2"
-        siguiente = 2
+        siguiente = 1
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                 siguiente = siguiente)
@@ -276,7 +324,7 @@ def logicaGeneral():
         tamano_fuente = 6
         cantidad_registro = 6
         nombre = "80"
-        siguiente = 2
+        siguiente = 1
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                 siguiente = siguiente)
@@ -286,9 +334,9 @@ def logicaGeneral():
         distancia_vert = 46.4
         rango_ini_hori = 130
         tamano_fuente = 6
-        cantidad_registro = 6
+        cantidad_registro = 12
         nombre = "ATE"
-        siguiente = 2
+        siguiente = 1
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                 siguiente = siguiente)
@@ -298,9 +346,9 @@ def logicaGeneral():
         distancia_vert = 46.4
         rango_ini_hori = 130
         tamano_fuente = 6
-        cantidad_registro = 6
+        cantidad_registro = 12
         nombre = "HUAYCAN"
-        siguiente = 2
+        siguiente = 1
         llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                 siguiente = siguiente)
