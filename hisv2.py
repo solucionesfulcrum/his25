@@ -2,45 +2,47 @@ import fitz  # PyMuPDF
 from datetime import date, datetime
 import locale
 import sqlite3
+import json  
 
 # ========================= CONFIGURACIÓN INICIAL =========================
 
 DB_FILE = "HIS25.db"
+TEMPLATE_FILE = "his.pdf"              # plantilla
+REGISTROS_POR_PAGINA = 12              # máximo por hoja
+ROW_HEIGHT = 46.4                      # distancia vertical entre filas
 
 # Locale para nombre de mes en español (Windows)
 locale.setlocale(locale.LC_TIME, 'Spanish_Spain.1252')
 
 hoy = date.today()
 
-# Datos que quieres imprimir en el PDF (puedes pegar aquí el JSON completo)
-datos = [
-    {
-        "nombre": "KARINA PUJAY CLAUDIO",
-        "h_clinica": "281302",
-        "dni": "76795677",
-        "fecha_nacimiento": "1995-06-16",
-        "edad": "20"
-    },
-    {
-        "nombre": "AYME JHAHAIRA ESTREMADOYRO JAUREGUI",
-        "h_clinica": "24947",
-        "dni": "74730076",
-        "fecha_nacimiento": "1995-02-09",
-        "edad": "25"
-    }
-]
-
-# Altura entre filas de pacientes
-ROW_HEIGHT = 46.4
+# Datos que quieres imprimir en el PDF (vienen de data.json)
+with open("data.json", "r", encoding="utf-8") as f:
+    datos = json.load(f)
 
 
 # ============================ FUNCIONES AUXILIARES ============================
 
-def formato_fecha_dd_mm_aaaa(fecha_iso: str) -> str:
+def formato_fecha_dd_mm_aaaa(fecha_str: str) -> str:
     """
-    Convierte '1995-06-16' -> '16     06     1995' para el formato del PDF.
+    Acepta:
+      - '1995-06-16' (YYYY-MM-DD)
+      - '16/06/1995' (DD/MM/YYYY)
+    y devuelve: '16     06     1995'
     """
-    dt = datetime.strptime(fecha_iso, "%Y-%m-%d").date()
+    fecha_str = fecha_str.strip()
+
+    dt = None
+    # 1) intenta ISO: 1995-06-16
+    try:
+        dt = datetime.strptime(fecha_str, "%Y-%m-%d").date()
+    except ValueError:
+        pass
+
+    # 2) si no, intenta formato Excel/Perú: 16/06/1995
+    if dt is None:
+        dt = datetime.strptime(fecha_str, "%d/%m/%Y").date()
+
     return f"{dt.day:02d}     {dt.month:02d}     {dt.year}"
 
 
@@ -79,18 +81,13 @@ def obtener_UnidadProductora_Diagnosticos():
     ]
 
 
-# ============================ LÓGICA PRINCIPAL ============================
-
-def logicaGeneral():
-    # Si quieres ver coordenadas, abre "coordenadas_marcadas.pdf"
-    # doc = fitz.open("coordenadas_marcadas.pdf")
-    doc = fitz.open("his.pdf")      # tu plantilla
-    page = doc[0]
-
-    # -------------------------- CABECERA --------------------------
+def dibujar_cabecera(page):
+    """
+    Dibuja la cabecera (año, mes, IPRESS, DNI responsable, etc.) en una página.
+    """
+    rango_ini_vert = 145
 
     # AÑO
-    rango_ini_vert = 145
     rango_ini_hori = 25
     page.insert_text((rango_ini_hori, rango_ini_vert), str(hoy.year), fontsize=6)
 
@@ -102,7 +99,7 @@ def logicaGeneral():
     rango_ini_hori = 150
     page.insert_text((rango_ini_hori, rango_ini_vert), "HOSPITAL HUAYCAN", fontsize=6)
 
-    # UNIDAD (si luego quieres usar los datos de BD, aquí) – por ahora vacío
+    # UNIDAD (por ahora vacío)
     rango_ini_hori = 330
     page.insert_text((rango_ini_hori, rango_ini_vert), "", fontsize=6)
 
@@ -114,14 +111,43 @@ def logicaGeneral():
     rango_ini_hori = 502
     page.insert_text((rango_ini_hori, rango_ini_vert), "L. CANCHIHUAMAN V.", fontsize=6)
 
-    # Si quieres usar la tabla UnidadProductora_Diagnosticos:
-    # unidadProductora_diagnostico = obtener_UnidadProductora_Diagnosticos()
+
+# ============================ LÓGICA PRINCIPAL ============================
+
+def logicaGeneral():
+    # Abrimos la plantilla
+    plantilla = fitz.open(TEMPLATE_FILE)
+
+    # Creamos documento de salida vacío
+    doc = fitz.open()
+
+    # Calculamos cuántas páginas se necesitan
+    if len(datos) == 0:
+        print("No hay datos en data.json")
+        return
+
+    num_paginas = (len(datos) + REGISTROS_POR_PAGINA - 1) // REGISTROS_POR_PAGINA
+
+    # Insertamos una copia de la página 0 de la plantilla por cada página necesaria
+    for _ in range(num_paginas):
+        doc.insert_pdf(plantilla, from_page=0, to_page=0)
+
+    plantilla.close()
+
+    # Dibujamos la cabecera en cada página
+    for i in range(num_paginas):
+        page = doc[i]
+        dibujar_cabecera(page)
 
     # --------------------- DETALLE POR PACIENTE ---------------------
 
     for idx, paciente in enumerate(datos):
-        # offset vertical para cada paciente
-        offset = idx * ROW_HEIGHT
+        # Página y fila en esa página
+        page_index = idx // REGISTROS_POR_PAGINA          # 0, 1, 2, ...
+        row_index = idx % REGISTROS_POR_PAGINA            # 0..11
+        offset = row_index * ROW_HEIGHT                   # desplazamiento vertical
+
+        page = doc[page_index]
 
         nombre_pac = paciente["nombre"]
         dni_pac = paciente["dni"]
@@ -168,11 +194,10 @@ def logicaGeneral():
 
         # 13) EDAD AÑO / MES / DÍA (marco años con X como ejemplo)
         page.insert_text((206, 197 + offset), "X", fontsize=14)  # años
-        # Si quieres marcar meses o días según edad, aquí pondrías la lógica
         # page.insert_text((206, 209 + offset), "X", fontsize=14)  # meses
         # page.insert_text((206, 221 + offset), "X", fontsize=14)  # días
 
-        # 14) SEXO (aquí lo dejo fijo en femenino; podrías agregar 'sexo' al JSON)
+        # 14) SEXO (fijo en femenino; si añades 'sexo' al JSON, lo cambiamos)
         page.insert_text((220, 219 + offset), "X", fontsize=14)  # Femenino
 
         # 15) PC / PB / PESO / TALLA / HB (valores de ejemplo)
