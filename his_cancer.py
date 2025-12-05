@@ -11,7 +11,7 @@ locale.setlocale(locale.LC_TIME, 'Spanish_Spain.1252')
 hoy = date.today()
 
 # 1. Leer el archivo JSON
-with open("data3122025.json", "r", encoding="utf-8") as f:
+with open("data3122025_cancer.json", "r", encoding="utf-8") as f:
     datos = json.load(f)   # aquí datos es una lista
 
 # 2. Función para dividir en bloques de n elementos

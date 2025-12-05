@@ -11,7 +11,7 @@ locale.setlocale(locale.LC_TIME, 'Spanish_Spain.1252')
 hoy = date.today()
 
 # 1. Leer el archivo JSON
-with open("data3122025.json", "r", encoding="utf-8") as f:
+with open("data3122025_materno.json", "r", encoding="utf-8") as f:
     datos = json.load(f)   # aquí datos es una lista
 
 # 2. Función para dividir en bloques de n elementos
@@ -126,7 +126,7 @@ def logicaGeneral():
         distancia_vert = 0
         tamano_fuente = 6
         cantidad_registro = 1
-        nombre = "TELESALUD CANCER"
+        nombre = "TELESALUD MATERNO"
         siguiente = 0
         llenadoPdf1(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
