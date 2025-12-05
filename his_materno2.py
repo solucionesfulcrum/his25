@@ -10,17 +10,19 @@ locale.setlocale(locale.LC_TIME, 'Spanish_Spain.1252')
 
 hoy = date.today()
 
+bloque_actividades = 2
+
 # 1. Leer el archivo JSON
-with open("data.json", "r", encoding="utf-8") as f:
+with open("data3122025_materno.json", "r", encoding="utf-8") as f:
     datos = json.load(f)   # aquí datos es una lista
 
 # 2. Función para dividir en bloques de n elementos
-def dividir_en_bloques(lista, tam=12):
+def dividir_en_bloques(lista, tam):
     for i in range(0, len(lista), tam):
         yield lista[i:i + tam]
 
 # 3. Obtener los bloques de 12
-bloques = list(dividir_en_bloques(datos, 12))
+bloques = list(dividir_en_bloques(datos, 6))
 
 # Ejemplos de uso:
 print("Total de bloques:", len(bloques))
@@ -71,6 +73,7 @@ def logicaGeneral():
 
     plantilla = fitz.open("his.pdf")   # asumo 1 página con el formato
     doc = fitz.open()                  # documento de salida
+    
 
     for num_bloque, bloque in enumerate(bloques):
         # Crear nueva página copiando la plantilla
@@ -126,7 +129,7 @@ def logicaGeneral():
         distancia_vert = 0
         tamano_fuente = 6
         cantidad_registro = 1
-        nombre = "TELESALUD CANCER"
+        nombre = "TELESALUD MATERNO"
         siguiente = 0
         llenadoPdf1(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -158,15 +161,18 @@ def logicaGeneral():
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                 siguiente = siguiente)
         
-        for x in range(len(datos)):
+        for i, registro in enumerate(bloque):
+        # i: 0..5 dentro de esta página
+        # registro: diccionario con nombre, dni, etc.
+            x = i  # si quieres seguir usando el nombre x
             #NOMBRES PACIENTE
             rango_ini_vert = 183
             distancia_vert = 46.4
             rango_ini_hori = 117
             tamano_fuente = 4
-            cantidad_registro = 12
-            nombre = datos[x]["nombre"]
-            siguiente = x
+            cantidad_registro = 6
+            nombre = registro["nombre"]
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -180,7 +186,7 @@ def logicaGeneral():
             tamano_fuente = 6
             cantidad_registro = 3
             nombre = ""
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -192,8 +198,8 @@ def logicaGeneral():
             rango_ini_hori = 522
             tamano_fuente = 6
             cantidad_registro = 12
-            nombre = datos[x]["fecha_nacimiento"]
-            siguiente = x
+            nombre = registro["fecha_nacimiento"]
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -206,7 +212,7 @@ def logicaGeneral():
             tamano_fuente = 6
             cantidad_registro = 12
             nombre = "3"
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -218,8 +224,8 @@ def logicaGeneral():
             rango_ini_hori = 58
             tamano_fuente = 6
             cantidad_registro = 12
-            nombre = datos[x]["dni"]
-            siguiente = x
+            nombre = registro["dni"]
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -231,8 +237,8 @@ def logicaGeneral():
             rango_ini_hori = 58
             tamano_fuente = 6
             cantidad_registro = 12
-            nombre = datos[x]["h_clinica"]
-            siguiente = x
+            nombre = registro["h_clinica"]
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -257,7 +263,7 @@ def logicaGeneral():
             tamano_fuente = 6
             cantidad_registro = 12
             nombre = "2"
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -270,7 +276,7 @@ def logicaGeneral():
             tamano_fuente = 6
             cantidad_registro = 6
             nombre = "80"
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -283,7 +289,7 @@ def logicaGeneral():
             tamano_fuente = 6
             cantidad_registro = 12
             nombre = "ATE"
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -296,7 +302,7 @@ def logicaGeneral():
             tamano_fuente = 6
             cantidad_registro = 12
             nombre = "HUAYCAN"
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -308,8 +314,8 @@ def logicaGeneral():
             rango_ini_hori = 193
             tamano_fuente = 6
             cantidad_registro = 6
-            nombre = datos[x]["edad"]
-            siguiente = x
+            nombre = registro["edad"]
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -323,7 +329,7 @@ def logicaGeneral():
             tamano_fuente = 14
             cantidad_registro = 12
             nombre = "X"
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -376,7 +382,7 @@ def logicaGeneral():
             tamano_fuente = 14
             cantidad_registro = 12
             nombre = "X"
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -468,7 +474,7 @@ def logicaGeneral():
             tamano_fuente = 14
             cantidad_registro = 6
             nombre = "X"
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -508,7 +514,7 @@ def logicaGeneral():
             tamano_fuente = 14
             cantidad_registro = 6
             nombre = "X"
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -534,8 +540,8 @@ def logicaGeneral():
             rango_ini_hori = 344
             tamano_fuente = 5
             cantidad_registro = 6
-            nombre = "CONSEJERIA PREVENTIVA DE CANCER"
-            siguiente = x
+            nombre = "SUPERVISION DEL EMBARAZO"
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -548,8 +554,8 @@ def logicaGeneral():
             rango_ini_hori = 344
             tamano_fuente = 5
             cantidad_registro = 6
-            nombre = "RESULTADO DE PAP"
-            siguiente = x
+            nombre = "CONSEJERIA EN SALUD SEXUAL Y REPRODUCTIVA"
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -562,14 +568,27 @@ def logicaGeneral():
             rango_ini_hori = 344
             tamano_fuente = 5
             cantidad_registro = 6
-            nombre = "EXAMEN DE MAMAS"
-            siguiente = x
+            nombre = "TELEORIENTACION SINCRONA"
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                     siguiente = siguiente)
             
+            #ACTIVIDAD 4
+            rango_ini_vert = 240
+            distancia_vert = 46.4
+            rango_ini_hori = 344
+            tamano_fuente = 5
+            cantidad_registro = 6
+            nombre = "SEGUIMIENTO TELEFONICO"
+            siguiente = x * bloque_actividades
+            rango_ini_vert += distancia_vert * siguiente
+
+            llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+                    tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
+                    siguiente = siguiente)
             #TIPO DIAGNOSTICO P 1
             rango_ini_vert = 196
             distancia_vert = 46.4
@@ -609,6 +628,19 @@ def logicaGeneral():
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                     siguiente = siguiente)
             
+            #TIPO DIAGNOSTICO P 4
+            rango_ini_vert = 242
+            distancia_vert = 46.4
+            rango_ini_hori = 502
+            tamano_fuente = 12
+            cantidad_registro = 6
+            nombre = ""
+            siguiente = 2
+
+            llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+                    tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
+                    siguiente = siguiente)
+            
             #TIPO DIAGNOSTICO D 1
             rango_ini_vert = 196
             distancia_vert = 46.4
@@ -616,7 +648,7 @@ def logicaGeneral():
             tamano_fuente = 12
             cantidad_registro = 6
             nombre = "X"
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -630,7 +662,7 @@ def logicaGeneral():
             tamano_fuente = 12
             cantidad_registro = 6
             nombre = "X"
-            siguiente = x
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -644,7 +676,21 @@ def logicaGeneral():
             tamano_fuente = 12
             cantidad_registro = 6
             nombre = "X"
-            siguiente = x
+            siguiente = x * bloque_actividades
+            rango_ini_vert += distancia_vert * siguiente
+
+            llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+                    tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
+                    siguiente = siguiente)
+            
+            #TIPO DIAGNOSTICO D 4
+            rango_ini_vert = 242
+            distancia_vert = 46.4
+            rango_ini_hori = 514
+            tamano_fuente = 12
+            cantidad_registro = 6
+            nombre = "X"
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -679,6 +725,19 @@ def logicaGeneral():
             
             #TIPO DIAGNOSTICO R 3
             rango_ini_vert = 220
+            distancia_vert = 46.4
+            rango_ini_hori = 526
+            tamano_fuente = 12
+            cantidad_registro = 6
+            nombre = ""
+            siguiente = 2
+
+            llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+                    tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
+                    siguiente = siguiente)
+            
+            #TIPO DIAGNOSTICO R 4
+            rango_ini_vert = 242
             distancia_vert = 46.4
             rango_ini_hori = 526
             tamano_fuente = 12
@@ -729,14 +788,27 @@ def logicaGeneral():
                     tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                     siguiente = siguiente)
             
+            #LABORATORIO 4
+            rango_ini_vert = 242
+            distancia_vert = 46.4
+            rango_ini_hori = 542
+            tamano_fuente = 6
+            cantidad_registro = 6
+            nombre = ""
+            siguiente = 2
+
+            llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+                    tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
+                    siguiente = siguiente)
+            
             #CODIGO CIE CPT 1
             rango_ini_vert = 194
             distancia_vert = 46.4
             rango_ini_hori = 565
             tamano_fuente = 6
             cantidad_registro = 12
-            nombre = "99402.08"
-            siguiente = x
+            nombre = "Z359"
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -749,8 +821,8 @@ def logicaGeneral():
             rango_ini_hori = 565
             tamano_fuente = 6
             cantidad_registro = 12
-            nombre = "88141"
-            siguiente = x
+            nombre = "99402.03"
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
@@ -763,18 +835,32 @@ def logicaGeneral():
             rango_ini_hori = 565
             tamano_fuente = 6
             cantidad_registro = 12
-            nombre = "99386.03"
-            siguiente = x
+            nombre = "99499.08"
+            siguiente = x * bloque_actividades
             rango_ini_vert += distancia_vert * siguiente
 
             llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
                 siguiente = siguiente)
         
-        # Guardar sobrescribiendo
-        #doc.save("coordenadas_marcadas.pdf", incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
-        doc.save("coordenadas_marcadas.pdf")
-        # Cerrar documento
-        doc.close()
+            #CODIGO CIE CPT 4
+            rango_ini_vert = 242
+            distancia_vert = 46.4
+            rango_ini_hori = 565
+            tamano_fuente = 6
+            cantidad_registro = 12
+            nombre = "98967"
+            siguiente = x * bloque_actividades
+            rango_ini_vert += distancia_vert * siguiente
+
+            llenadoPdf(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
+                tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
+                siguiente = siguiente)
+        
+    # Guardar sobrescribiendo
+    #doc.save("coordenadas_marcadas.pdf", incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
+    doc.save("coordenadas_marcadas.pdf")
+    # Cerrar documento
+    doc.close()
 
 logicaGeneral()
