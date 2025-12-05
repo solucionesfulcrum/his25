@@ -11,7 +11,7 @@ locale.setlocale(locale.LC_TIME, 'Spanish_Spain.1252')
 hoy = date.today()
 
 # 1. Leer el archivo JSON
-with open("data.json", "r", encoding="utf-8") as f:
+with open("data3122025.json", "r", encoding="utf-8") as f:
     datos = json.load(f)   # aquí datos es una lista
 
 # 2. Función para dividir en bloques de n elementos
@@ -27,16 +27,19 @@ print("Total de bloques:", len(bloques))
 #print("Primer bloque:", bloques[0])      # primeros 12 registros
 # print("Segundo bloque:", bloques[1])   # siguientes 12, si existe
 
-def llenadoPdf(cantidad_registro, page, rango_ini_hori, nombre, tamano_fuente, distancia_vert, rango_ini_vert, siguiente):    
+def llenadoPdf(cantidad_registro, page, rango_ini_hori, nombre,
+               tamano_fuente, distancia_vert, rango_ini_vert, siguiente):
+    # Siempre convertir a texto
+    texto = "" if nombre is None else str(nombre)
+    page.insert_text((rango_ini_hori, rango_ini_vert), texto, fontsize=tamano_fuente)
 
 
-    #for x in range(cantidad_registro):
-        page.insert_text((rango_ini_hori, rango_ini_vert), nombre, fontsize=tamano_fuente)
+def llenadoPdf1(cantidad_registro, page, rango_ini_hori, nombre,
+                tamano_fuente, distancia_vert, rango_ini_vert, siguiente):
 
-def llenadoPdf1(cantidad_registro, page, rango_ini_hori, nombre, tamano_fuente, distancia_vert, rango_ini_vert, siguiente):    
-
+    texto = "" if nombre is None else str(nombre)
     for x in range(cantidad_registro):
-        page.insert_text((rango_ini_hori, rango_ini_vert), nombre, fontsize=tamano_fuente)
+        page.insert_text((rango_ini_hori, rango_ini_vert), texto, fontsize=tamano_fuente)
         rango_ini_vert += distancia_vert * siguiente
 
 def obtener_UnidadProductora_Diagnosticos():
@@ -123,7 +126,7 @@ def logicaGeneral():
         distancia_vert = 0
         tamano_fuente = 6
         cantidad_registro = 1
-        nombre = "TELESALUD / SMPN UNIDAD PRODUCTORA"
+        nombre = "CANCER(ENTREGA DE RESULTADO DE PAP)"
         siguiente = 0
         llenadoPdf1(cantidad_registro=cantidad_registro, page=page, rango_ini_hori=rango_ini_hori, nombre=nombre, 
                 tamano_fuente=tamano_fuente, distancia_vert=distancia_vert, rango_ini_vert=rango_ini_vert,
@@ -529,7 +532,7 @@ def logicaGeneral():
             rango_ini_hori = 344
             tamano_fuente = 5
             cantidad_registro = 6
-            nombre = "CONSEJERIA EN SALUD SEXUAL Y REPRODUCTIVA"
+            nombre = "CONSEJERIA PREVENTIVA DE CANCER"
             siguiente = x
             rango_ini_vert += distancia_vert * siguiente
 
@@ -543,7 +546,7 @@ def logicaGeneral():
             rango_ini_hori = 344
             tamano_fuente = 5
             cantidad_registro = 6
-            nombre = "TELEORIENTACION SINCRONA"
+            nombre = "RESULTADO DE PAP"
             siguiente = x
             rango_ini_vert += distancia_vert * siguiente
 
@@ -557,7 +560,7 @@ def logicaGeneral():
             rango_ini_hori = 344
             tamano_fuente = 5
             cantidad_registro = 6
-            nombre = "SEGUIMIENTO TELEFONICO"
+            nombre = "EXAMEN DE MAMAS"
             siguiente = x
             rango_ini_vert += distancia_vert * siguiente
 
@@ -727,7 +730,7 @@ def logicaGeneral():
             rango_ini_hori = 565
             tamano_fuente = 6
             cantidad_registro = 12
-            nombre = "99402.03"
+            nombre = "99402.08"
             siguiente = x
             rango_ini_vert += distancia_vert * siguiente
 
@@ -741,7 +744,7 @@ def logicaGeneral():
             rango_ini_hori = 565
             tamano_fuente = 6
             cantidad_registro = 12
-            nombre = "99499.08"
+            nombre = "88141"
             siguiente = x
             rango_ini_vert += distancia_vert * siguiente
 
@@ -755,7 +758,7 @@ def logicaGeneral():
             rango_ini_hori = 565
             tamano_fuente = 6
             cantidad_registro = 12
-            nombre = "98967"
+            nombre = "99386.03"
             siguiente = x
             rango_ini_vert += distancia_vert * siguiente
 

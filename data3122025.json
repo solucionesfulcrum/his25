@@ -1,0 +1,86 @@
+[
+  {
+    "nombre": "LUISA Andrea PERALTA CHACARA",
+    "h_clinica": "4440",
+    "dni": "43819779",
+    "fecha_nacimiento": "15      09      1986",
+    "edad": 38
+  },
+  {
+    "nombre": "JHOSSELYNN XIOMARA MEZA BERROSPI",
+    "h_clinica": "64313",
+    "dni": "76615717",
+    "fecha_nacimiento": "15      08      2001",
+    "edad": 24
+  },
+  {
+    "nombre": "SARITA MAYRA GONZALES BERNABLE",
+    "h_clinica": "47401",
+    "dni": "60074079",
+    "fecha_nacimiento": "17      06      2001",
+    "edad": 24
+  },
+  {
+    "nombre": "SANDRA ISABEL ESPINOZA HURTADO",
+    "h_clinica": "282041",
+    "dni": "47471321",
+    "fecha_nacimiento": "29      04      1988",
+    "edad": 37
+  },
+  {
+    "nombre": "SARA SAUÑE PALPA",
+    "h_clinica": "58968",
+    "dni": "77411512",
+    "fecha_nacimiento": "3      03      2001",
+    "edad": 24
+  },
+  {
+    "nombre": "NINFA Quispe ÁLVARO",
+    "h_clinica": "35201",
+    "dni": "45701668",
+    "fecha_nacimiento": "1      01      1989",
+    "edad": 36
+  },
+  {
+    "nombre": "KARINA PUJAY CLAUDIO",
+    "h_clinica": "281302",
+    "dni": "76795677",
+    "fecha_nacimiento": "16      06      1995",
+    "edad": 30
+  },
+  {
+    "nombre": "AYME JHAHAIRA ESTREMADOYRO JAUREGUI",
+    "h_clinica": "24947",
+    "dni": "74730076",
+    "fecha_nacimiento": "9      02      1995",
+    "edad": 30
+  },
+  {
+    "nombre": "SOLedad MILAGROS ALCANTARA CONDORI",
+    "h_clinica": "43053",
+    "dni": "43602838",
+    "fecha_nacimiento": "27      06      1986",
+    "edad": 39
+  },
+  {
+    "nombre": "MARIASABETH GINA GOMEZ LIZANA",
+    "h_clinica": "162577",
+    "dni": "72957842",
+    "fecha_nacimiento": "3      07      1999",
+    "edad": 25
+  },
+   {
+    "nombre": "CATNHERINE MAVILA CASTRO CARIJANO",
+    "h_clinica": "41773",
+    "dni": "73936090",
+    "fecha_nacimiento": "30      11      1996",
+    "edad": 28
+  },
+  {
+    "nombre": "ROXANA Marisol ALIAGA LADERA",
+    "h_clinica": "162997",
+    "dni": "47038535",
+    "fecha_nacimiento": "25      12      1991",
+    "edad": 33
+  }
+]

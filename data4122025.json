@@ -1,0 +1,86 @@
+[
+  {
+    "nombre": "ANDIA ALCARRAZ MARIA",
+    "h_clinica": "28008",
+    "dni": "42126813",
+    "fecha_nacimiento": "06 10 1983",
+    "edad": 42
+  },
+  {
+    "nombre": "AGUILAR SOTELO DE FARFAN ERIKA",
+    "h_clinica": "59670",
+    "dni": "07521713",
+    "fecha_nacimiento": "15 09 1976",
+    "edad": 49
+  },
+  {
+    "nombre": "BORJA SANAHABRIA DIANA",
+    "h_clinica": "203306",
+    "dni": "76290351",
+    "fecha_nacimiento": "24 03 2000",
+    "edad": 25
+  },
+  {
+    "nombre": "CARHUARICRA CONDOR ISABEL",
+    "h_clinica": "86155",
+    "dni": "04289046",
+    "fecha_nacimiento": "10 03 1985",
+    "edad": 40
+  },
+  {
+    "nombre": "CARHUANCHO LIMALLYA DELCY",
+    "h_clinica": "198568",
+    "dni": "41460626",
+    "fecha_nacimiento": "28 08 1982",
+    "edad": 42
+  },
+  {
+    "nombre": "CHANNGANA LANDA EDITH",
+    "h_clinica": "212495",
+    "dni": "15758731",
+    "fecha_nacimiento": "20 09 1978",
+    "edad": 37
+  },
+  {
+    "nombre": "CAMPOS CAHUANA JUDITH",
+    "h_clinica": "18026",
+    "dni": "45478167",
+    "fecha_nacimiento": "23 12 1988",
+    "edad": 36
+  },
+  {
+    "nombre": "CONDE CASAVILCA RAQUEL",
+    "h_clinica": "18026",
+    "dni": "45599562",
+    "fecha_nacimiento": "06 10 1988",
+    "edad": 37
+  },
+  {
+    "nombre": "CHUNGA PINGO IRMA",
+    "h_clinica": "86665",
+    "dni": "43528412",
+    "fecha_nacimiento": "24 01 1986",
+    "edad": 39
+  },
+  {
+    "nombre": "CASAS CARHUAVILCA NEVELIS",
+    "h_clinica": "12924",
+    "dni": "45340745",
+    "fecha_nacimiento": "02 07 1987",
+    "edad": 38
+  },
+  {
+    "nombre": "DE LA TORRE VARGAS SOLEDAD",
+    "h_clinica": "211869",
+    "dni": "41135209",
+    "fecha_nacimiento": "14 04 1989",
+    "edad": 36
+  },
+  {
+    "nombre": "DEUDOR PBNCE EDITH",
+    "h_clinica": "61629",
+    "dni": "21289712",
+    "fecha_nacimiento": "02 11 1977",
+    "edad": 48
+  }
+]
